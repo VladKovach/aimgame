@@ -1,0 +1,33 @@
+/* Wrapper for the whole game */
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+  width: 100vw; /* Full viewport width */
+  background: linear-gradient(135deg, #6b73ff, #000dff); /* Beautiful gradient background */
+  overflow: hidden;
+}
+
+/* Black square in the center */
+.game-board {
+  position: relative;
+  width: 500px; /* Adjust the size as needed */
+  height: 500px; /* Adjust the size as needed */
+  background-color: black;
+  border-radius: 10px; /* Slightly rounded corners for better aesthetics */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+  cursor: crosshair;
+}
+
+/* White circle */
+.circle {
+  position: absolute;
+  width: 50px; /* Diameter of the circle */
+  height: 50px; /* Diameter of the circle */
+  background-color: white;
+  border-radius: 50%; /* Makes it a perfect circle */
+  top: 50%; /* Centered by default */
+  left: 50%; /* Centered by default */
+  transform: translate(-50%, -50%); /* Adjusts to be fully centered */
+}

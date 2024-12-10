@@ -1,1 +1,124 @@
 /* You can add global styles to this file, and also import other style files */
+/* 1. Reset Browser Defaults */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Include padding and border in element's total width/height */
+}
+
+html,
+body {
+  height: 100%; /* Ensure the body fills the viewport */
+  font-family: "Arial", sans-serif; /* Default font family */
+  font-size: 16px; /* Base font size for easy scaling */
+  line-height: 1.5; /* Better text readability */
+  scroll-behavior: smooth; /* Smooth scrolling for better UX */
+  background-color: #f0f0f0; /* Neutral light background */
+  color: #333; /* Default text color */
+  background: linear-gradient(
+    135deg,
+    #6b73ff,
+    #000dff
+  ); /* Beautiful gradient background */
+  overflow: hidden;
+}
+
+/* 2. Default Links */
+a {
+  text-decoration: none; /* Remove underline */
+  color: inherit; /* Use the same color as surrounding text */
+  transition: color 0.2s ease-in-out; /* Smooth color transition */
+}
+
+a:hover {
+  color: #007bff; /* Accent color for links on hover */
+}
+
+/* 3. Images */
+img {
+  max-width: 100%; /* Responsive images */
+  display: block; /* Remove unwanted spacing around images */
+}
+
+/* 4. Buttons */
+button {
+  font: inherit; /* Inherit font settings from parent */
+  cursor: pointer; /* Pointer cursor for buttons */
+  background-color: #007bff; /* Default button color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}
+
+button:disabled {
+  cursor: not-allowed; /* Indicate disabled state */
+  opacity: 0.6;
+}
+
+/* 5. Inputs and Forms */
+input,
+textarea,
+select {
+  font: inherit; /* Match the font styles */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  width: 100%;
+  transition: border-color 0.2s ease-in-out;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #007bff; /* Highlight input on focus */
+}
+
+/* 6. Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0.5em; /* Space below headings */
+  font-weight: 600; /* Semi-bold headings */
+  line-height: 1.2; /* Compact heading spacing */
+}
+
+/* 7. Paragraphs */
+p {
+  margin-bottom: 1em;
+}
+
+/* 8. Lists */
+ul,
+ol {
+  margin: 0 0 1em 1.5em; /* Indent lists */
+  padding: 0;
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+/* 9. Utility Classes */
+.container {
+  width: 90%;
+  max-width: 1200px; /* Limit container width */
+  margin: 0 auto; /* Center container */
+}
+
+.text-center {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
