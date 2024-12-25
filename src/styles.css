@@ -7,8 +7,7 @@
 }
 
 html,
-body {
-  height: 100%; /* Ensure the body fills the viewport */
+body ,main{
   font-family: "Arial", sans-serif; /* Default font family */
   font-size: 16px; /* Base font size for easy scaling */
   line-height: 1.5; /* Better text readability */
@@ -20,9 +19,19 @@ body {
     #6b73ff,
     #000dff
   ); /* Beautiful gradient background */
-  overflow: hidden;
+  background-attachment: fixed;
+  background-size: cover;
+  overflow-x: hidden;
 }
-
+main{
+  padding: 10px 10px 20px;
+}
+button,
+a,
+input {
+  -webkit-tap-highlight-color: transparent; /* Disable highlight color */
+  outline: none; /* Remove focus outline */
+}
 /* 2. Default Links */
 a {
   text-decoration: none; /* Remove underline */
@@ -50,6 +59,11 @@ button {
   padding: 10px 20px;
   border-radius: 4px;
   transition: background-color 0.2s ease-in-out;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer */
+  user-select: none; /* Standard syntax */
+  cursor: default; /* Prevent text cursor from appearing */
 }
 
 button:hover {

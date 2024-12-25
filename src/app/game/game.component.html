@@ -1,5 +1,29 @@
 <div class="game-wrapper">
-  <div class="game-board">
-    <div class="circle"></div>
+  <p class="text">Choose Difficulty</p>
+  <div class="controls">
+    <button (click)="setDifficulty('easy')">Easy</button>
+    <button (click)="setDifficulty('medium')">Medium</button>
+    <button (click)="setDifficulty('hard')">Hard</button>
+  </div>
+  <div class="settings">
+    <label for="timer">Game Duration (seconds): </label>
+    <input id="timer" type="number" [(ngModel)]="gameDuration" min="10" />
+    <button (click)="startGame()">Start Game</button>
+  </div>
+
+  <div class="game-board" #gameBoard [ngClass]="difficulty">
+    <div
+      class="circle"
+      [style.left.px]="circleX"
+      [style.top.px]="circleY"
+      (click)="circleClickHandler($event)"
+    ></div>
+  </div>
+
+  <div *ngIf="!isGameRunning && hasGameEnded" class="scoreboard">
+    <p>Game Over!</p>
+    <p>Your final score: {{ totalScore }}</p>
+    <p>Total misclicks: {{ misclicks }}</p>
+    <button (click)="resetGame()">Play Again</button>
   </div>
 </div>

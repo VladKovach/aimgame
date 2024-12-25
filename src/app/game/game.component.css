@@ -1,33 +1,236 @@
 /* Wrapper for the whole game */
 .game-wrapper {
+  padding-top: 20px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full viewport height */
-  width: 100vw; /* Full viewport width */
-  background: linear-gradient(135deg, #6b73ff, #000dff); /* Beautiful gradient background */
-  overflow: hidden;
+
+}
+
+.text {
+  color: white;
+  font-size: larger;
+  font-weight: bold; /* Make the text more prominent */
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Game Duration Timer Styling */
+.settings {
+  margin: 20px 0;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.settings label {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.settings input {
+  width: 60px;
+  padding: 5px 10px;
+  font-size: 16px;
+  border: 2px solid white;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.1); /* Transparent input background */
+  color: white;
+  text-align: center;
+  position: relative;
+  -moz-appearance: textfield; /* Remove spinner buttons for Firefox */
+}
+.settings input::-webkit-inner-spin-button,
+.settings input::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Remove default appearance */
+  margin: 0; /* Remove margin */
+}
+.settings input:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.2); /* Slightly lighter on focus */
+}
+
+.settings input::after {
+  content: "";
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  /* background: url("up-arrow-icon.png") no-repeat center center; Add your up icon */
+  background-size: contain;
+  cursor: pointer;
+}
+
+.settings input::before {
+  content: "";
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  width: 12px;
+  height: 12px;
+  /* background: url("down-arrow-icon.png") no-repeat center center; Add your down icon */
+  background-size: contain;
+  cursor: pointer;
+}
+.settings button {
+  padding: 10px 15px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    #4caf50,
+    #81c784
+  ); /* Green gradient for start button */
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.settings button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(
+    90deg,
+    #43a047,
+    #66bb6a
+  ); /* Slightly darker green on hover */
 }
 
 /* Black square in the center */
 .game-board {
+  margin-top: 20px;
+  margin-bottom: 20px;
   position: relative;
-  width: 500px; /* Adjust the size as needed */
-  height: 500px; /* Adjust the size as needed */
   background-color: black;
   border-radius: 10px; /* Slightly rounded corners for better aesthetics */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
   cursor: crosshair;
+  min-width: 300px;
+  min-height: 300px;
+}
+
+.easy {
+  width: 50vmin;
+  height: 50vmin;
+  --circle-size: 4vmin; /* Adjust the circle size for easy boards */
+}
+
+.medium {
+  width: 75vmin;
+  height: 75vmin;
+  --circle-size: 3vmin; /* Adjust the circle size for medium boards */
+}
+
+.hard {
+  width: 98vmin;
+  height: 98vmin;
+  --circle-size: 2vmin; /* Adjust the circle size for hard boards */
 }
 
 /* White circle */
 .circle {
   position: absolute;
-  width: 50px; /* Diameter of the circle */
-  height: 50px; /* Diameter of the circle */
+  width: var(--circle-size); /* Circle size based on board size */
+  height: var(--circle-size); /* Circle size based on board size */
   background-color: white;
   border-radius: 50%; /* Makes it a perfect circle */
   top: 50%; /* Centered by default */
   left: 50%; /* Centered by default */
   transform: translate(-50%, -50%); /* Adjusts to be fully centered */
+}
+
+/* Controls container */
+.controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px; /* Space between buttons */
+}
+
+/* Base button styling */
+.controls button {
+  padding: 10px 20px; /* Add padding for a comfortable click area */
+  font-size: 16px; /* Adjust font size for readability */
+  font-weight: bold;
+  color: white; /* Text color */
+  border: none; /* Remove default border */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease; /* Smooth hover animations */
+}
+
+.controls button:hover {
+  transform: scale(1.05);
+}
+
+/* Easy button (Green) */
+.controls button:first-child {
+  background: linear-gradient(
+    90deg,
+    rgba(58, 180, 79, 1) 0%,
+    rgba(252, 242, 69, 1) 100%
+  );
+}
+
+/* Medium button (Yellow/Orange) */
+.controls button:nth-child(2) {
+  background: linear-gradient(
+    90deg,
+    rgba(252, 242, 69, 1) 0%,
+    rgba(252, 144, 69, 1) 100%
+  );
+}
+
+/* Hard button (Red) */
+.controls button:last-child {
+  background: linear-gradient(
+    90deg,
+    rgba(252, 144, 69, 1) 0%,
+    rgba(252, 69, 69, 1) 100%
+  );
+}
+
+/* Scoreboard */
+.scoreboard {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+  color: white;
+  text-align: center;
+  width: 300px; /* Fixed width for consistency */
+}
+
+.scoreboard p {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.scoreboard button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(90deg, #ff9800, #f57c00); /* Orange gradient */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.scoreboard button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(
+    90deg,
+    #e65100,
+    #ff6f00
+  ); /* Darker orange on hover */
 }
