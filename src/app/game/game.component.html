@@ -63,7 +63,12 @@
   </div>
   <p class="time-left">{{ curentGameDuration }}s</p>
 
-  <div class="game-board" #gameBoard [ngClass]="difficulty">
+  <div
+    class="game-board"
+    (click)="boardClickHandler()"
+    #gameBoard
+    [ngClass]="difficulty"
+  >
     <div
       class="circle"
       [style.left.px]="circleX"

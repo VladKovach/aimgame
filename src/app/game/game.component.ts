@@ -163,50 +163,56 @@ export class GameComponent {
     this.circleX = Math.min(Math.max(this.circleX, 0), maxX);
     this.circleY = Math.min(Math.max(this.circleY, 0), maxY);
   }
-
+  boardClickHandler(): void {
+    this.misclicks += 1;
+    this.totalScore -= 10;
+  }
   circleClickHandler(event: MouseEvent): void {
+    event.stopPropagation();
     if (!this.isGameRunning) return;
+    this.totalScore += 50;
+    this.moveCircleRandomly();
 
-    const parent = this.gameBoardRef.nativeElement as HTMLElement;
-    const rect = parent.getBoundingClientRect(); // Get the position of the game board in the viewport
+    // const parent = this.gameBoardRef.nativeElement as HTMLElement;
+    // const rect = parent.getBoundingClientRect(); // Get the position of the game board in the viewport
+    // console.log('rect = ', rect);
 
-    // Calculate the circle's boundaries in the viewport
-    const circleLeft = rect.left + this.circleX;
-    const circleTop = rect.top + this.circleY;
-    const circleSize = parent.offsetWidth * 0.04; // Circle size as percentage
-    const circleRight = circleLeft + circleSize;
-    const circleBottom = circleTop + circleSize;
+    // // Calculate the circle's boundaries in the viewport
+    // const circleLeft = rect.left + this.circleX;
+    // const circleTop = rect.top + this.circleY;
+    // const circleSize = parent.offsetWidth * 0.04; // Circle size as percentage
+    // const circleRight = circleLeft + circleSize;
+    // const circleBottom = circleTop + circleSize;
 
-    // Check if the click is inside the circle
-    const isInsideCircle =
-      event.clientX >= circleLeft &&
-      event.clientX <= circleRight &&
-      event.clientY >= circleTop &&
-      event.clientY <= circleBottom;
+    // // Check if the click is inside the circle
+    // const isInsideCircle =
+    //   event.clientX >= circleLeft &&
+    //   event.clientX <= circleRight &&
+    //   event.clientY >= circleTop &&
+    //   event.clientY <= circleBottom;
 
-    if (isInsideCircle) {
-      // Calculate the score based on click accuracy
-      const circleCenterX = circleLeft + circleSize / 2;
-      const circleCenterY = circleTop + circleSize / 2;
-      const distance = Math.sqrt(
-        Math.pow(event.clientX - circleCenterX, 2) +
-          Math.pow(event.clientY - circleCenterY, 2)
-      );
+    // if (isInsideCircle) {
+    //   // Calculate the score based on click accuracy
+    //   const circleCenterX = circleLeft + circleSize / 2;
+    //   const circleCenterY = circleTop + circleSize / 2;
+    //   const distance = Math.sqrt(
+    //     Math.pow(event.clientX - circleCenterX, 2) +
+    //       Math.pow(event.clientY - circleCenterY, 2)
+    //   );
 
-      let score = 50; // Base score
-      if (distance < 25) {
-        // Bonus for accurate clicks
-        score += 25 - distance;
-      }
+    //   let score = 50; // Base score
+    //   if (distance < 25) {
+    //     // Bonus for accurate clicks
+    //     score += 25 - distance;
+    //   }
 
-      this.totalScore += Math.round(score);
-    } else {
-      // Misclick detected
-      this.misclicks += 1;
-      this.totalScore = Math.max(this.totalScore - 10, 0); // Deduct 10 points but ensure totalScore is not below 0
-    }
+    //   this.totalScore += Math.round(score);
+    // } else {
+    //   // Misclick detected
+    //   this.misclicks += 1;
+    //   this.totalScore = Math.max(this.totalScore - 10, 0); // Deduct 10 points but ensure totalScore is not below 0
+    // }
 
     // Move the circle to a random position
-    this.moveCircleRandomly();
   }
 }
