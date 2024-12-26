@@ -1,15 +1,67 @@
 <div class="game-wrapper">
   <p class="text">Choose Difficulty</p>
   <div class="controls">
-    <button (click)="setDifficulty('easy')">Easy</button>
-    <button (click)="setDifficulty('medium')">Medium</button>
-    <button (click)="setDifficulty('hard')">Hard</button>
+    <button
+      (click)="setDifficulty('easy')"
+      [ngClass]="{ scaled: difficulty === 'easy' }"
+    >
+      Easy
+    </button>
+    <button
+      (click)="setDifficulty('medium')"
+      [ngClass]="{ scaled: difficulty === 'medium' }"
+    >
+      Medium
+    </button>
+    <button
+      (click)="setDifficulty('hard')"
+      [ngClass]="{ scaled: difficulty === 'hard' }"
+    >
+      Hard
+    </button>
   </div>
+
   <div class="settings">
-    <label for="timer">Game Duration (seconds): </label>
-    <input id="timer" type="number" [(ngModel)]="gameDuration" min="10" />
-    <button (click)="startGame()">Start Game</button>
+    <p>Game Duration (seconds):</p>
+    <div>
+      <button
+        [ngClass]="{ active: gameDuration === 10 }"
+        (click)="setTimeHandler(10)"
+      >
+        10
+      </button>
+      <button
+        [ngClass]="{ active: gameDuration === 15 }"
+        (click)="setTimeHandler(15)"
+      >
+        15
+      </button>
+      <button
+        [ngClass]="{ active: gameDuration === 30 }"
+        (click)="setTimeHandler(30)"
+      >
+        30
+      </button>
+      <button
+        [ngClass]="{ active: gameDuration === 60 }"
+        (click)="setTimeHandler(60)"
+      >
+        60
+      </button>
+      <button
+        [ngClass]="{ active: gameDuration === 90 }"
+        (click)="setTimeHandler(90)"
+      >
+        90
+      </button>
+    </div>
+    <button class="start-game_btn" (click)="startGame()">Start Game</button>
   </div>
+
+  <div class="progress-container">
+    <div class="progress-bar" #progressBar></div>
+  </div>
+  <p class="time-left">{{ curentGameDuration }}s</p>
 
   <div class="game-board" #gameBoard [ngClass]="difficulty">
     <div
@@ -20,10 +72,13 @@
     ></div>
   </div>
 
-  <div *ngIf="!isGameRunning && hasGameEnded" class="scoreboard">
-    <p>Game Over!</p>
-    <p>Your final score: {{ totalScore }}</p>
-    <p>Total misclicks: {{ misclicks }}</p>
-    <button (click)="resetGame()">Play Again</button>
-  </div>
+  <app-popup [isVisible]="!isGameRunning && hasGameEnded">
+    <div popupTitle>Scoreboard</div>
+
+    <div popupBody>
+      <p>Your final score: {{ totalScore }}</p>
+      <p>Total misclicks: {{ misclicks }}</p>
+      <button (click)="resetGame()">Play Again</button>
+    </div>
+  </app-popup>
 </div>

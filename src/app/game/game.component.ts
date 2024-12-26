@@ -1,35 +1,35 @@
-import { CommonModule, NgClass } from '@angular/common';
-import { Component, ElementRef, ViewChild, HostListener } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // Correct import for forms
+import { Component, ViewChild, HostListener, ElementRef } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { PopupComponent } from '../popup/popup.component';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.css'],
-  imports: [NgClass, FormsModule, CommonModule], // Import FormsModule and NgClass here
+  imports: [CommonModule, FormsModule, PopupComponent],
 })
 export class GameComponent {
   @ViewChild('gameBoard') gameBoardRef!: ElementRef; // Reference to .game-board
   misclicks: number = 0; // Track the number of misclicks
-
   difficulty: string = 'medium';
-  gameDuration: number = 30; // Default game duration
+  gameDuration: number = 30; // Default game duration (in seconds)
+  curentGameDuration: number = 30;
   circleX: number = 0; // Circle's X position
   circleY: number = 0; // Circle's Y position
   isGameRunning: boolean = false;
   hasGameEnded: boolean = false;
   totalScore: number = 0;
   timerInterval: any;
+  @ViewChild('progressBar') progressBarRef!: ElementRef; // Reference to the progress bar element
 
   ngAfterViewInit(): void {
-    // Ensure the circle is centered when the component loads
-    this.moveCircleToCenter();
+    this.moveCircleToCenter(); // Ensure the circle is centered when the component loads
   }
 
   @HostListener('window:resize')
   onResize(): void {
-    // Recalculate the circle position on window resize
-    this.moveCircleToCenter();
+    this.moveCircleToCenter(); // Recalculate the circle position on window resize
   }
 
   @HostListener('document:keydown', ['$event'])
@@ -42,64 +42,92 @@ export class GameComponent {
 
   setDifficulty(level: string): void {
     this.difficulty = level;
-
     // Update the board size by applying a different CSS class
     const parent = this.gameBoardRef.nativeElement as HTMLElement;
     parent.className = `game-board ${level}`;
-
-    // Recalculate the circle position
-    this.moveCircleToCenter();
+    this.moveCircleToCenter(); // Recalculate the circle position
   }
 
   startGame(): void {
-    // Clear any existing interval before starting a new game
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
     }
 
     this.totalScore = 0;
+    this.misclicks = 0;
     this.isGameRunning = true;
     this.hasGameEnded = false;
-    this.moveCircleToCenter();
 
-    // Start the timer
+    // Add the 'bar-active' class to the progress bar
+
+    const progressBar = this.progressBarRef.nativeElement as HTMLElement;
+    progressBar.style.setProperty('--game-duration', `${this.gameDuration}s`);
+
+    progressBar.classList.add('bar-active');
+    this.moveCircleToCenter(); // Move circle to center before the game starts
+
     this.timerInterval = setInterval(() => {
-      this.gameDuration--;
-      if (this.gameDuration <= 0) {
-        this.gameDuration = 0; // Ensure the timer stops at 0
-        this.endGame();
+      this.curentGameDuration--; // Decrease the game duration every second
+
+      if (this.curentGameDuration <= 0) {
+        this.curentGameDuration = 0;
+        this.endGame(); // End game when time is up
       }
     }, 1000);
   }
+  setTimeHandler(time: number): void {
+    this.gameDuration = time;
+    this.curentGameDuration = time;
+  }
+  updateTimer(): void {
+    // Update the progress bar width based on the remaining time
+    // const progressBar = document.querySelector('.progress-bar') as HTMLElement;
+    // if (progressBar) {
+    //   progressBar.style.width = `${(this.gameDuration / 30) * 100}%`;
+    // }
+
+    // Update the timer text (remaining seconds)
+    const timeLeftElement = document.querySelector('.time-left') as HTMLElement;
+    if (timeLeftElement) {
+      timeLeftElement.textContent = `${this.curentGameDuration}s`;
+    }
+  }
 
   endGame(): void {
-    clearInterval(this.timerInterval);
+    console.log('endGame');
+
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
     this.isGameRunning = false;
     this.hasGameEnded = true;
+
+    // Remove the 'bar-active' class from the progress bar
+    const progressBar = this.progressBarRef.nativeElement as HTMLElement;
+    progressBar.classList.remove('bar-active');
   }
 
   resetGame(): void {
     this.resetTimer();
     this.misclicks = 0; // Reset misclicks
-
     this.totalScore = 0;
     this.isGameRunning = false;
     this.hasGameEnded = false;
-    this.moveCircleToCenter();
+    this.moveCircleToCenter(); // Reset circle position
   }
 
   resetTimer(): void {
     // Stop any running timer and reset to default duration
     clearInterval(this.timerInterval);
     this.gameDuration = 30;
+    this.curentGameDuration = 30;
+    this.updateTimer(); // Reset the timer display
   }
 
   moveCircleToCenter(): void {
     if (!this.gameBoardRef || !this.isGameRunning) return; // Ensure the game is running and the reference exists
 
     const parent = this.gameBoardRef.nativeElement as HTMLElement;
-
-    // Get the current size of the game board and circle
     const circleSize =
       (parent.offsetWidth *
         parseFloat(

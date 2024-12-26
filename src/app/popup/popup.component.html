@@ -1,0 +1,19 @@
+<div class="popup-overlay" *ngIf="isVisible" (click)="closePopup()">
+  <div
+    class="popup-content"
+    (click)="$event.stopPropagation()"
+    [@popupAnimation]="popupState"
+  >
+
+    <!-- Title -->
+    <div class="popup-title">
+      <ng-content select="[popupTitle]"></ng-content>
+      <button class="popup-close-btn" (click)="closePopup()">×</button>
+    </div>
+
+    <!-- Body -->
+    <div class="popup-body">
+      <ng-content select="[popupBody]"></ng-content>
+    </div>
+  </div>
+</div>
