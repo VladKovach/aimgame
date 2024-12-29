@@ -17,11 +17,6 @@
 
 /* Game Duration Timer Styling */
 
-
-
-
-
-
 .start-game_btn {
   padding: 10px 15px;
   font-size: 16px;
@@ -99,24 +94,25 @@
     transform: translateX(-101%);
   }
 }
-.settings{
+.settings {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 20px 0;
 }
-.settings p{
+.settings p {
   color: white;
 }
-
-
+.settings div{
+text-align: center;
+}
 .settings div button {
   display: inline-flex;
   justify-content: center;
   align-items: center;
   width: 40px;
   height: 40px;
-  margin: 0 5px;
+  margin: 5px 5px;
   font-size: 16px;
   font-weight: bold;
   color: #000000; /* Text color */
@@ -126,7 +122,7 @@
   transition: all 0.3s ease; /* Smooth hover effect */
 }
 
-.settings div button.active  {
+.settings div button.active {
   background-color: #1e90ff; /* Blue background when selected */
   color: #fff; /* White text when selected */
   border-color: #1e90ff; /* Match border color with background */
@@ -153,6 +149,22 @@
   cursor: crosshair;
   min-width: 300px;
   min-height: 300px;
+  z-index: 100;
+}
+.game-board.active {
+  box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.7); /* White glow */
+  transform: scale(1.05); /* Slightly enlarge the board for emphasis */
+  transition: all 0.3s;
+}
+.game-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+  z-index: 90; /* Ensure it appears above other elements */
+  pointer-events: auto; /* Prevent clicks from affecting the overlay */
 }
 
 .easy {
@@ -183,6 +195,7 @@
   top: 50%; /* Centered by default */
   left: 50%; /* Centered by default */
   transform: translate(-50%, -50%); /* Adjusts to be fully centered */
+  z-index: 200;
 }
 
 /* Controls container */

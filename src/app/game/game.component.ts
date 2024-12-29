@@ -94,20 +94,19 @@ export class GameComponent {
   }
 
   endGame(): void {
-    console.log('endGame');
-
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
     }
     this.isGameRunning = false;
     this.hasGameEnded = true;
-
+    this.curentGameDuration = this.gameDuration
     // Remove the 'bar-active' class from the progress bar
     const progressBar = this.progressBarRef.nativeElement as HTMLElement;
     progressBar.classList.remove('bar-active');
   }
 
   resetGame(): void {
+
     this.resetTimer();
     this.misclicks = 0; // Reset misclicks
     this.totalScore = 0;
@@ -119,8 +118,8 @@ export class GameComponent {
   resetTimer(): void {
     // Stop any running timer and reset to default duration
     clearInterval(this.timerInterval);
-    this.gameDuration = 30;
-    this.curentGameDuration = 30;
+    // this.gameDuration = 30;
+    this.curentGameDuration = this.gameDuration;
     this.updateTimer(); // Reset the timer display
   }
 
