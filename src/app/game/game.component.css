@@ -279,3 +279,16 @@ text-align: center;
     #ff6f00
   ); /* Darker orange on hover */
 }
+.game-history_wrapper{
+width: 300px;
+
+}
+.history-list{
+  color: white;
+  list-style-position: inside;
+  width: 300px;
+}
+.history-item{
+  width: 300px;
+  border-bottom: 1px solid white;
+}

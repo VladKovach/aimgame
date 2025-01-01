@@ -77,6 +77,15 @@
       (click)="circleClickHandler($event)"
     ></div>
   </div>
+
+  <div *ngIf="history.length" class="game-history_wrapper">
+    <p class="text">Game History</p>
+    <ol type="1" class="history-list">
+      <li *ngFor="let item of history" class="history-item">
+        Score: {{ item.score }}. Miscliks: {{ item.miscliks }}
+      </li>
+    </ol>
+  </div>
   <div class="game-overlay" *ngIf="isGameRunning"></div>
 
   <app-popup [isVisible]="!isGameRunning && hasGameEnded">

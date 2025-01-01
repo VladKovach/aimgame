@@ -109,12 +109,7 @@ h6 {
 /* 7. Paragraphs */
 
 
-/* 8. Lists */
-ul,
-ol {
-  margin: 0 0 1em 1.5em; /* Indent lists */
-  padding: 0;
-}
+
 
 li {
   margin-bottom: 0.5em;

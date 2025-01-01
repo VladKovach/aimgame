@@ -2,7 +2,10 @@ import { Component, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { PopupComponent } from '../popup/popup.component';
-
+interface HistoryItem {
+  score: number;
+  miscliks: number;
+}
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -13,6 +16,7 @@ export class GameComponent {
   @ViewChild('gameBoard') gameBoardRef!: ElementRef; // Reference to .game-board
   misclicks: number = 0; // Track the number of misclicks
   difficulty: string = 'medium';
+  history: HistoryItem[] = [];
   gameDuration: number = 30; // Default game duration (in seconds)
   curentGameDuration: number = 30;
   circleX: number = 0; // Circle's X position
@@ -97,16 +101,16 @@ export class GameComponent {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
     }
+    this.history.push({ score: this.totalScore, miscliks: this.misclicks });
     this.isGameRunning = false;
     this.hasGameEnded = true;
-    this.curentGameDuration = this.gameDuration
+    this.curentGameDuration = this.gameDuration;
     // Remove the 'bar-active' class from the progress bar
     const progressBar = this.progressBarRef.nativeElement as HTMLElement;
     progressBar.classList.remove('bar-active');
   }
 
   resetGame(): void {
-
     this.resetTimer();
     this.misclicks = 0; // Reset misclicks
     this.totalScore = 0;
@@ -164,7 +168,7 @@ export class GameComponent {
   }
   boardClickHandler(): void {
     this.misclicks += 1;
-    this.totalScore -= 10;
+    this.totalScore <= 0 ? (this.totalScore = 0) : (this.totalScore -= 10);
   }
   circleClickHandler(event: MouseEvent): void {
     event.stopPropagation();
