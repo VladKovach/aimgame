@@ -1,6 +1,6 @@
 
 export default {
-  basePath: 'https://vladkovach.github.io/aimgame/',
+  basePath: '/aimgame/',
   entryPoints: {
     '': () => import('./main.server.mjs')
   },
