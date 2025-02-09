@@ -26,6 +26,7 @@ export class GameComponent {
   totalScore: number = 0;
   timerInterval: any;
   @ViewChild('progressBar') progressBarRef!: ElementRef; // Reference to the progress bar element
+  @ViewChild('circle') circleRef!: ElementRef; // Reference to the progress bar element
 
   ngAfterViewInit(): void {
     this.moveCircleToCenter(); // Ensure the circle is centered when the component loads
@@ -56,6 +57,9 @@ export class GameComponent {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
     }
+    const circle = this.circleRef.nativeElement as HTMLElement;
+
+    circle.classList.add('circle-active');
 
     this.totalScore = 0;
     this.misclicks = 0;
@@ -107,7 +111,11 @@ export class GameComponent {
     this.curentGameDuration = this.gameDuration;
     // Remove the 'bar-active' class from the progress bar
     const progressBar = this.progressBarRef.nativeElement as HTMLElement;
+    const circle = this.circleRef.nativeElement as HTMLElement;
+
     progressBar.classList.remove('bar-active');
+    circle.classList.remove('circle-active');
+
   }
 
   resetGame(): void {

@@ -103,8 +103,8 @@
 .settings p {
   color: white;
 }
-.settings div{
-text-align: center;
+.settings div {
+  text-align: center;
 }
 .settings div button {
   display: inline-flex;
@@ -196,8 +196,11 @@ text-align: center;
   left: 50%; /* Centered by default */
   transform: translate(-50%, -50%); /* Adjusts to be fully centered */
   z-index: 200;
+  visibility: hidden;
 }
-
+.circle.circle-active {
+  visibility: visible;
+}
 /* Controls container */
 .controls {
   margin-top: 20px;
@@ -279,16 +282,15 @@ text-align: center;
     #ff6f00
   ); /* Darker orange on hover */
 }
-.game-history_wrapper{
-width: 300px;
-
+.game-history_wrapper {
+  width: 300px;
 }
-.history-list{
+.history-list {
   color: white;
   list-style-position: inside;
   width: 300px;
 }
-.history-item{
+.history-item {
   width: 300px;
   border-bottom: 1px solid white;
 }

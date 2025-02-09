@@ -71,7 +71,7 @@
     [ngClass]="difficulty"
   >
     <div
-      class="circle"
+      class="circle" #circle
       [style.left.px]="circleX"
       [style.top.px]="circleY"
       (click)="circleClickHandler($event)"
